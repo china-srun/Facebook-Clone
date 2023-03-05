@@ -20,6 +20,7 @@ model User {
   updatedAt    DateTime  @updatedAt
   Share        Share[]
   Friends      Friends[]
+  profileImage String?
 }
 
 model Post {

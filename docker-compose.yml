@@ -1,0 +1,16 @@
+version: "3.8"
+name: facebook-clone
+services:
+  db:
+    image: postgres:latest
+    container_name: facebook-clone-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: facebook-db
+    expose:
+      - "5433"
+    ports:
+      - "5433:5433"
+    command: -p 5433
