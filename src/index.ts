@@ -1,15 +1,12 @@
-import "dotenv/config";
 import express from "express";
+import config from "./configs/config";
 
-const app = express();
+function app() {
+  const app = express();
+  const port = config.PORT || 4000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
-
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
-});
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.listen(port, () => console.log(`Server is listening on port ${port}!`));
+}
+app();

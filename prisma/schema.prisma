@@ -9,3 +9,63 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  name         String?
+  posts        Post[]
+  phoneNumbers String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  Share        Share[]
+  Friends      Friends[]
+}
+
+model Post {
+  id        String    @id @default(uuid())
+  title     String
+  published Boolean   @default(true)
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Comment   Comment[]
+  Like      Like[]
+  Share     Share[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  text      String
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  amount    Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Share {
+  id        String   @id @default(uuid())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Friends {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+}

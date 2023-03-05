@@ -2,13 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/index.ts",
-    "start:prod": "npm run build && node ./dist/src/index.js",
+    "dev": "pnpm run build && node ./dist/src/index.js",
     "build": "npx tsc",
-    "start:dev": "nodemon",
+    "start": "nodemon",
     "seed": "ts-node prisma/seed.ts",
     "prepare": "husky install"
   },
